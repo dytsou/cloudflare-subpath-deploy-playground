@@ -1,0 +1,39 @@
+name: Test Action
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  self-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout action repo
+        uses: actions/checkout@v4
+        with:
+          repository: dytsou/cloudflare-subpath-deploy
+          path: action
+
+      - name: Syntax check
+        run: node --check action/lib/*.mjs
+
+      - name: Lib self-checks
+        run: |
+          node action/lib/verify-deploy-contract.mjs --self-check
+          node action/lib/verify-route-manifest.mjs --self-check
+          node action/lib/upsert-route-manifest.mjs --self-check
+          node action/lib/deploy-pages.mjs --self-check
+          node action/lib/deploy-worker.mjs --self-check
+          node action/lib/smoke-routes.mjs --self-check
+
+      - name: Validate fixtures
+        run: node action/lib/verify-route-manifest.mjs fixtures/route-manifest.json
+
+      - name: Validate sample contract shape
+        run: |
+          test -f fixtures/sample-contract.json
+          test -f fixtures/sample-page/dist/index.html

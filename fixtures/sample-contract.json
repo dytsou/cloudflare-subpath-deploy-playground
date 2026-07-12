@@ -1,0 +1,9 @@
+{
+  "ownerRepo": "dytsou/cloudflare-subpath-deploy-playground",
+  "canonicalPath": "/demo/",
+  "canonicalUrl": "https://dy.tsou.me/demo/",
+  "previewUrl": "https://demo.tsou.me",
+  "pagesProject": "dy-tsou-demo",
+  "outputDir": "dist",
+  "basePath": "/"
+}
