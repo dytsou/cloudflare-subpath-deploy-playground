@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: dytsou/cloudflare-subpath-deploy
+          ref: 1d47dbb638f9855ea97bdc302a1eafb0606a68ac # v1.0.0 (@v1)
           path: action
 
       - name: Syntax check
